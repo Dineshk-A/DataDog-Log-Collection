@@ -1,0 +1,20 @@
+{
+    "schemaVersion": "2.2",
+    "description": "Download and run add_dd_agent_to_log_groups.sh from S3 as root",
+    "mainSteps": [
+      {
+        "action": "aws:runShellScript",
+        "name": "downloadRunAndCleanupScript",
+        "inputs": {
+          "runCommand": [
+            "aws s3 cp s3://your-bucket-name/your-script-path/add_dd_agent_to_log_groups.sh /home/add_dd_agent_to_log_groups.sh",
+            "chmod +x /home/add_dd_agent_to_log_groups.sh",
+            "sudo bash /home/add_dd_agent_to_log_groups.sh", 
+            "sudo systemctl restart datadog-agent || sudo service datadog-agent restart",
+            "rm -f /home/add_dd_agent_to_log_groups.sh"
+          ]
+        }
+      }
+    ]
+  }
+  

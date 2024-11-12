@@ -1,0 +1,24 @@
+logs:
+  - type: file
+    path: /var/log/amazon/ssm/amazon.log
+    service: amazon-ssm
+    source: aws
+    sourcecategory: ssm
+    log_processing_rules:
+      - type: multi_line
+        pattern: '^\d{4}-\d{2}-\d{2}'  # example pattern to treat logs with date at the start as multiline
+
+  - type: file
+    path: /var/log/application1/*.log
+    service: application1
+    source: custom
+    sourcecategory: application1
+    log_processing_rules:
+      - type: multi_line
+        pattern: '^\d{4}-\d{2}-\d{2}'  # example pattern for multiline logs with date prefix
+
+  - type: file
+    path: /var/log/application2/*.log
+    service: application2
+    source: custom
+    sourcecategory: application2
